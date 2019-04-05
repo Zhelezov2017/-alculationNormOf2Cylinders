@@ -8,17 +8,17 @@ tic
 global a_0 ee k_0 Theta N_max cylXY L E0z H0z p EE GG HH N_cylinders 
 GPC_systemParameters
 
-n = 10000;
-a = -20000;  
-b = 20000;
-cr = -20000;
-d = 20000;
+n = 1000;
+a = -1000;  
+b = 1000;
+cr = -1000;
+d = 1000;
 h = (b-a) / n; 
 x=a:h:b;
 y=cr:h:d;
 
-N_max = 0;
-p = 8.298; 
+N_max = 3;
+p = 4; 
 
 N_cylinders = 2;
 L = 3 * a_0;
@@ -32,31 +32,29 @@ RateCalculationMatrixOutInt = RateCalculationMatrixOutInt(N_max, k_0, p, a_0, EE
 
 
 Integral = Integral(RateCalculationMatrix);
+
 BeenFieldEX =  BeenFieldEX(N_cylinders, N_max, cylXY, BD,k_0, p, x, y);
 BeenFieldEY =  BeenFieldEY(N_cylinders, N_max, cylXY, BD,k_0, p, x, y);
 BeenFieldHX =  BeenFieldHX(N_cylinders, N_max, cylXY, BD,k_0, p, x, y);
 BeenFieldHY =  BeenFieldHY(N_cylinders, N_max, cylXY, BD,k_0, p, x, y);
 VectorProduct = VectorProduct( BeenFieldHX, BeenFieldHY, BeenFieldEX, BeenFieldEY );
-IntegralOut = IntegralOutside(VectorProduct, x, y);
+Sum = 0;
 
+Man = sum(BeenFieldEX);
+Man(1,501) = 0;
+%IntegralOut = IntegralOutside(Sum , x, y);
+IntOut = IntegralOutside(Man, x, y);
 
 IntegralOutIntVent = IntegralNew(RateCalculationMatrixOutInt);
 
 
-IntegralFull = Integral + IntegralOut - IntegralOutIntVent;
-valueSet = zeros(4,(2*N_max+1)*N_cylinders);
+IntegralFull = Integral + IntOut - IntegralOutIntVent;
 
-%for jj = 0: N_cylinders-1
-%     for jm = 1:2*N_max+1
-%         DC = zeros(1,4);
-%         for jh = 1:4
-%             DC(1,jh)=BD(4*(2*N_max+1)*jj+jh+4*jm-4);
-%             valueSet(jh,(2*N_max+1)*jj-jm+1)=DC(1,jh);
-%         end 
-%         R(1:4)=valueSet(1:4,jj);     
-%     end
-%end     
+   
 
+  
+
+    
 
 
 

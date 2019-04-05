@@ -12,12 +12,15 @@ Summ = 0;
               end
               valueSet(jh,(2*N_max+1)*jj-jm+1)=DC(1,5-jh);
           end
-          R(1:4)=valueSet(1:4,jj);
-          Summ =+ FieldOutsideHY(m(jm), R, k_0, p, cylXY(jj,1), cylXY(jj,2), x, y);
       end
  end  
   
-
+for jj = 0: N_cylinders-1
+      for jm = 1:2*N_max+1
+          R(1:4)=valueSet(1:4,jj*(2*N_max+1) + jm );
+          Summ =+ FieldOutsideHY(m(jm), R, k_0, p, cylXY(jj+1,1), cylXY(jj+1,2), x, y);
+      end
+end
 
 
 BeenFieldHY = Summ;
