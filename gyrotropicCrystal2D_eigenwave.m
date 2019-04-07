@@ -8,11 +8,11 @@ tic
 global a_0 ee k_0 Theta N_max cylXY L E0z H0z p EE GG HH N_cylinders 
 GPC_systemParameters
 
-n = 1000;
-a = -1000;  
-b = 1000;
-cr = -1000;
-d = 1000;
+n = 2000;
+a = -2000;  
+b = 2000;
+cr = -2000;
+d = 2000;
 h = (b-a) / n; 
 x=a:h:b;
 y=cr:h:d;
@@ -40,8 +40,8 @@ BeenFieldHY =  BeenFieldHY(N_cylinders, N_max, cylXY, BD,k_0, p, x, y);
 VectorProduct = VectorProduct( BeenFieldHX, BeenFieldHY, BeenFieldEX, BeenFieldEY );
 Sum = 0;
 
-Man = sum(BeenFieldEX);
-Man(1,501) = 0;
+Man = sum(BeenFieldEX)+sum(BeenFieldEY)+sum(BeenFieldHX)+sum(BeenFieldHY);
+Man(1,1001) = 0;
 %IntegralOut = IntegralOutside(Sum , x, y);
 IntOut = IntegralOutside(Man, x, y);
 

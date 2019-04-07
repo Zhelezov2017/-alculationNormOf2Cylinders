@@ -4,10 +4,10 @@ if(N_max == 0) m = 0; end
 q = sqrt(1 - p.^2);
 q = q.* (2*(imag(q) <= 0)-1);
 
-FieldOutsideHPHI = zeros(1001,1001);
-FieldOutsideHRHO = zeros(1001,1001);
-for ii = 1:1001
-    for ij = 1:1001
+FieldOutsideHPHI = zeros(2001,2001);
+FieldOutsideHRHO = zeros(2001,2001);
+for ii = 1:2001
+    for ij = 1:2001
         dx = x(ii)-x0;
         dy = y(ij)-y0;
         rho = sqrt(dx.^2 + dy.^2);
